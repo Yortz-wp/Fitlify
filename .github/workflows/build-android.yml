@@ -47,6 +47,52 @@ jobs:
       - name: Add Android platform
         run: npx cap add android
         
+      - name: Fix Android status bar insets
+        run: |
+          mkdir -p android/app/src/main/java/app/fitlify/mobile
+
+          cat > android/app/src/main/java/app/fitlify/mobile/MainActivity.java <<'JAVA'
+          package app.fitlify.mobile;
+
+          import android.os.Bundle;
+          import android.view.View;
+
+          import androidx.core.graphics.Insets;
+          import androidx.core.view.ViewCompat;
+          import androidx.core.view.WindowCompat;
+          import androidx.core.view.WindowInsetsCompat;
+
+          import com.getcapacitor.BridgeActivity;
+
+          public class MainActivity extends BridgeActivity {
+              @Override
+              public void onCreate(Bundle savedInstanceState) {
+                  super.onCreate(savedInstanceState);
+
+                  WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
+                  View content = findViewById(android.R.id.content);
+
+                  ViewCompat.setOnApplyWindowInsetsListener(content, (view, windowInsets) -> {
+                      Insets insets = windowInsets.getInsets(
+                          WindowInsetsCompat.Type.systemBars()
+                      );
+
+                      view.setPadding(
+                          insets.left,
+                          insets.top,
+                          insets.right,
+                          insets.bottom
+                      );
+
+                      return windowInsets;
+                  });
+
+                  ViewCompat.requestApplyInsets(content);
+              }
+          }
+          JAVA
+      
       - name: Add Firebase configuration
         run: |
           cp google-services.json android/app/google-services.json
