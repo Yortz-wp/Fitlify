@@ -1,8 +1,9 @@
 {
   "name": "FITLIFY — Get FITlify.",
   "short_name": "FITLIFY",
-  "description": "Your nutrition and fitness companion.",
+  "description": "Filipino-friendly nutrition and fitness tracker.",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#0b1017",
   "theme_color": "#0b1017",
