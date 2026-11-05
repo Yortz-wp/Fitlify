@@ -1,36 +1,25 @@
-FITLIFY v0.1 — PHONE-FIRST PWA STARTER
+FITLIFY v0.2 — Filipino Food Database
 
-WHAT WORKS
-- Responsive premium dark UI with cyan and yellow accents
-- Calorie budget and macro totals
-- Manual food logging by meal category
-- Delete food entries
-- Editable calorie and macro goals
-- Water intake quick log
-- Weight entry (stored locally)
-- JSON backup export
-- Local browser storage
-- PWA manifest and service worker for install/offline support
+WHAT'S NEW
+- Searchable starter database of Filipino dishes, staples, protein foods, fruit and selected fast-food items.
+- Serving size and quantity controls.
+- Automatic calories, protein, carbs and fat calculation.
+- Custom food creation.
+- Daily meal diary and macro dashboard.
+- Editable goals and JSON backup export.
+- Local browser storage and PWA offline cache.
 
-IMPORTANT
-- This is a first prototype, not a native Android APK.
-- It has not been tested on your specific phone/browser.
-- Data is stored only in this browser on this device. Export backups.
-- No account, cloud sync, food database, AI photo scanner, barcode scanner,
-  workout tracker, or medical-grade nutrition validation yet.
-- Sample default goals are demo settings. Edit them to your own appropriate targets.
-- For PWA installation and service worker/offline support, publish via HTTPS.
-  Opening index.html directly from file storage may not enable installation/offline mode.
+DEPLOYMENT
+1. Extract this ZIP.
+2. In your existing GitHub repository, upload/replace ALL files in this folder directly in the repository root.
+3. Commit changes to the main branch.
+4. GitHub Pages will redeploy automatically.
 
-PHONE-ONLY PUBLISHING OPTION
-1. Create/sign in to GitHub in Chrome.
-2. Create a public repository named fitlify.
-3. Upload the files from this ZIP to the repository root.
-4. In repository Settings > Pages, deploy from the main branch and root folder.
-5. Wait for GitHub Pages to provide the HTTPS site address.
-6. Open that address in Chrome on Android, then use browser menu > Add to Home screen
-   (or Install app if offered).
+IMPORTANT NUTRITION NOTICE
+The included food values are starter estimates, not a verified national food composition database. Recipes, brands, cooking methods, oil, sauces and serving weights change nutrition significantly. Fast-food values are approximate and must be checked against current official product nutrition information. Users should prefer weighing portions and using package labels where available.
 
-FREE-TIER NOTES
-GitHub Pages is a static hosting option with usage limits and terms. It is not a
-database or private backend. Keep the repository free of personal nutrition data.
+DATA
+Food logs, goals and custom foods are stored locally in the browser/device. They are not synced to an account or cloud. Export JSON backups before clearing browser data or changing devices.
+
+LIMITATIONS
+This is still a web/PWA prototype, not an Android APK. It does not include barcode scanning, AI photo recognition, accounts, cloud sync or verified comprehensive nutrition data.
