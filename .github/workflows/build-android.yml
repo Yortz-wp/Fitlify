@@ -46,10 +46,69 @@ jobs:
 
       - name: Add Android platform
         run: npx cap add android
+        
+      - name: Add Firebase configuration
+        run: |
+          cp google-services.json android/app/google-services.json
 
+      - name: Configure Firebase Google dependencies
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p = Path("android/variables.gradle")
+          s = p.read_text()
+
+          if "rgcfaIncludeGoogle" not in s:
+              s = s.replace(
+                  "ext {",
+                  "ext {\n    rgcfaIncludeGoogle = true\n    androidxCredentialsVersion = '1.3.0'",
+                  1
+              )
+
+          p.write_text(s)
+          PY
+      
       - name: Sync Android
         run: npx cap sync android
 
+      - name: Configure Google Services Gradle plugin
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          root = Path("android/build.gradle")
+          app = Path("android/app/build.gradle")
+
+          s = root.read_text()
+          marker = "classpath 'com.google.gms:google-services:4.5.0'"
+
+          pattern = r"classpath\s+['\"]com\.google\.gms:google-services:[^'\"]+['\"]"
+
+          if re.search(pattern, s):
+              s = re.sub(pattern, marker, s, count=1)
+          else:
+              pos = s.find("dependencies {")
+              if pos == -1:
+                  raise SystemExit("Root Gradle dependencies block not found")
+              pos += len("dependencies {")
+              s = s[:pos] + "\n        " + marker + s[pos:]
+
+          root.write_text(s)
+
+          s = app.read_text()
+          marker = "apply plugin: 'com.google.gms.google-services'"
+
+          if marker not in s:
+              target = "apply plugin: 'com.android.application'"
+              if target not in s:
+                  raise SystemExit("Android application plugin not found")
+              s = s.replace(target, target + "\n" + marker, 1)
+
+          app.write_text(s)
+          PY
+      
       - name: Restore permanent signing key
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
