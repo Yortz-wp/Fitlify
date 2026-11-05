@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "659304004768",
+    "project_id": "fitlify-e4cfc",
+    "storage_bucket": "fitlify-e4cfc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659304004768:android:053168fe49758b3d5f9dc5",
+        "android_client_info": {
+          "package_name": "app.fitlify.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "659304004768-flgamer8cguf6uao1fp2ps308i2olmia.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.fitlify.mobile",
+            "certificate_hash": "5bdfda91f20e6a7ed4dda5a9ff85bbd0dce8fa4b"
+          }
+        },
+        {
+          "client_id": "659304004768-bp36sugtn6q16isofc647r54d6270mri.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBseaT4zUJfgrCCJ_KmsMdGTe1faCszvoQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "659304004768-bp36sugtn6q16isofc647r54d6270mri.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
