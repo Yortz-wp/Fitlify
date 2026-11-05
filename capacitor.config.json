@@ -1,0 +1,8 @@
+{
+  "appId": "app.fitlify.mobile",
+  "appName": "FITLIFY",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}
