@@ -51,8 +51,8 @@ button {
   justify-content: space-between;
   border-bottom: 1px solid #1c2834;
   background: #0b1017;
-  position: sticky;
-  top: env(safe-area-inset-top, 24px);
+  position: relative;
+  top: auto;
   z-index: 3;
 }
 
