@@ -1,59 +1,121 @@
+
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#0b1017">
   <meta name="description" content="FITLIFY — Filipino-friendly nutrition and fitness tracker.">
+
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
+
   <title>FITLIFY — Get FITlify.</title>
 </head>
+
 <body>
   <header class="topbar">
-    <a class="brand" href="#" aria-label="FITLIFY home"><span class="brand-mark">F</span><span>FITLIFY<small>GET FITLIFY.</small></span></a>
+    <a class="brand" href="#" aria-label="FITLIFY home">
+      <span class="brand-mark">F</span>
+      <span>FITLIFY<small>GET FITLIFY.</small></span>
+    </a>
     <button id="settingsBtn" class="icon-btn" aria-label="Daily goals">⚙</button>
   </header>
+
   <main>
     <section class="hero">
-      <div><p class="eyebrow">PHILIPPINES EDITION · v0.2</p><h1>Fuel your <span>progress.</span></h1><p class="muted">Your food. Your goals. Your FITLIFY.</p></div>
+      <div>
+        <p class="eyebrow">PHILIPPINES EDITION · v0.2</p>
+        <h1>Fuel your <span>progress.</span></h1>
+        <p class="muted">Your food. Your goals. Your FITLIFY.</p>
+      </div>
       <div class="date-pill" id="todayLabel"></div>
     </section>
 
     <section class="panel dashboard">
-      <div class="section-head"><div><p class="eyebrow">DAILY OVERVIEW</p><h2>Calories</h2></div><span class="tag">TODAY</span></div>
-      <div class="calorie-row">
-        <div class="ring" id="calorieRing"><div><strong id="caloriesLeft">1800</strong><small>kcal left</small></div></div>
-        <div class="calorie-stats"><div><small>Consumed</small><strong id="caloriesIn">0 <i>kcal</i></strong></div><div><small>Daily goal</small><strong id="calorieGoal">1800 <i>kcal</i></strong></div></div>
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">DAILY OVERVIEW</p>
+          <h2>Calories</h2>
+        </div>
+        <span class="tag">TODAY</span>
       </div>
+
+      <div class="calorie-row">
+        <div class="ring" id="calorieRing">
+          <div>
+            <strong id="caloriesLeft">1800</strong>
+            <small>kcal left</small>
+          </div>
+        </div>
+
+        <div class="calorie-stats">
+          <div><small>Consumed</small><strong id="caloriesIn">0 <i>kcal</i></strong></div>
+          <div><small>Daily goal</small><strong id="calorieGoal">1800 <i>kcal</i></strong></div>
+        </div>
+      </div>
+
       <div class="macro-grid">
-        <div class="macro"><div class="macro-top"><span>Protein</span><b id="proteinText">0 / 130g</b></div><div class="bar"><i id="proteinBar"></i></div></div>
-        <div class="macro"><div class="macro-top"><span>Carbs</span><b id="carbsText">0 / 180g</b></div><div class="bar yellow"><i id="carbsBar"></i></div></div>
-        <div class="macro"><div class="macro-top"><span>Fat</span><b id="fatText">0 / 55g</b></div><div class="bar pink"><i id="fatBar"></i></div></div>
+        <div class="macro">
+          <div class="macro-top"><span>Protein</span><b id="proteinText">0 / 130g</b></div>
+          <div class="bar"><i id="proteinBar"></i></div>
+        </div>
+        <div class="macro">
+          <div class="macro-top"><span>Carbs</span><b id="carbsText">0 / 180g</b></div>
+          <div class="bar yellow"><i id="carbsBar"></i></div>
+        </div>
+        <div class="macro">
+          <div class="macro-top"><span>Fat</span><b id="fatText">0 / 55g</b></div>
+          <div class="bar pink"><i id="fatBar"></i></div>
+        </div>
       </div>
     </section>
 
-    <section class="section-title"><div><p class="eyebrow">YOUR FOOD JOURNAL</p><h2>Today's meals</h2></div><button class="primary small" id="openFood">＋ Add food</button></section>
+    <section class="section-title">
+      <div>
+        <p class="eyebrow">YOUR FOOD JOURNAL</p>
+        <h2>Today's meals</h2>
+      </div>
+      <button class="primary small" id="openFood">＋ Add food</button>
+    </section>
+
     <section id="mealSections" class="meal-list"></section>
 
     <section class="panel database-intro">
-      <div><p class="eyebrow">BUILT FOR FILIPINO EATS</p><h2>Food database</h2><p class="muted">Search local dishes, everyday staples and popular meals.</p></div>
+      <div>
+        <p class="eyebrow">BUILT FOR FILIPINO EATS</p>
+        <h2>Food database</h2>
+        <p class="muted">Search local dishes, everyday staples and popular meals.</p>
+      </div>
       <button class="secondary" id="browseFoods">Explore foods <span>→</span></button>
     </section>
-    <footer>FITLIFY <span>·</span> Get FITlify. <small>Nutrition values are estimates unless verified from a product label or reliable source.</small></footer>
+
+    <footer>
+      FITLIFY <span>·</span> Get FITlify.
+      <small>Nutrition values are estimates unless verified from a product label or reliable source.</small>
+    </footer>
   </main>
 
   <dialog id="foodDialog" class="modal">
-    <div class="modal-head"><div><p class="eyebrow">FOOD DATABASE</p><h2>Add food</h2></div><button class="icon-btn close" data-close="foodDialog">✕</button></div>
+    <div class="modal-head">
+      <div><p class="eyebrow">FOOD DATABASE</p><h2>Add food</h2></div>
+      <button class="icon-btn close" data-close="foodDialog">✕</button>
+    </div>
     <input id="foodSearch" class="search" placeholder="Search adobo, rice, egg, Jollibee..." autocomplete="off">
     <div class="filters" id="categoryFilters"></div>
     <div class="food-results" id="foodResults"></div>
-    <div class="custom-link"><span>Can't find your food?</span><button class="text-btn" id="customFoodBtn">＋ Create custom food</button></div>
+    <div class="custom-link">
+      <span>Can't find your food?</span>
+      <button class="text-btn" id="customFoodBtn">＋ Create custom food</button>
+    </div>
   </dialog>
 
   <dialog id="portionDialog" class="modal compact">
-    <div class="modal-head"><div><p class="eyebrow">ADD TO YOUR DIARY</p><h2 id="selectedFoodName">Food</h2></div><button class="icon-btn close" data-close="portionDialog">✕</button></div>
+    <div class="modal-head">
+      <div><p class="eyebrow">ADD TO YOUR DIARY</p><h2 id="selectedFoodName">Food</h2></div>
+      <button class="icon-btn close" data-close="portionDialog">✕</button>
+    </div>
     <p class="muted" id="selectedFoodInfo"></p>
     <label>Meal<select id="mealSelect"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snacks</option></select></label>
     <label>Serving size<select id="servingSelect"></select></label>
@@ -63,7 +125,10 @@
   </dialog>
 
   <dialog id="customDialog" class="modal compact">
-    <div class="modal-head"><div><p class="eyebrow">YOUR OWN FOOD</p><h2>Create custom food</h2></div><button class="icon-btn close" data-close="customDialog">✕</button></div>
+    <div class="modal-head">
+      <div><p class="eyebrow">YOUR OWN FOOD</p><h2>Create custom food</h2></div>
+      <button class="icon-btn close" data-close="customDialog">✕</button>
+    </div>
     <p class="muted">Enter nutrition values for one serving, using a food label or a reliable source.</p>
     <form id="customForm">
       <label>Food name<input id="customName" required maxlength="70" placeholder="e.g. Homemade chicken adobo"></label>
@@ -79,7 +144,10 @@
   </dialog>
 
   <dialog id="settingsDialog" class="modal compact">
-    <div class="modal-head"><div><p class="eyebrow">PERSONAL TARGETS</p><h2>Daily goals</h2></div><button class="icon-btn close" data-close="settingsDialog">✕</button></div>
+    <div class="modal-head">
+      <div><p class="eyebrow">PERSONAL TARGETS</p><h2>Daily goals</h2></div>
+      <button class="icon-btn close" data-close="settingsDialog">✕</button>
+    </div>
     <form id="goalsForm">
       <label>Calories (kcal)<input id="goalKcal" type="number" min="500" max="10000" required></label>
       <div class="form-grid">
@@ -92,6 +160,7 @@
     <p class="note">These are personal tracking targets, not medical nutrition advice.</p>
     <button id="exportBtn" class="secondary full">Export my data (JSON)</button>
   </dialog>
+
   <script src="app.js"></script>
 </body>
 </html>
