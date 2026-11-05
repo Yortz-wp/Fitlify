@@ -29,18 +29,11 @@ jobs:
           distribution: temurin
           java-version: 21
 
-          
       - name: Install Android SDK packages
         run: |
-          echo "ANDROID_HOME=$ANDROID_HOME"
           SDKMANAGER=$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager | head -n 1)
-          if [ -z "$SDKMANAGER" ]; then
-            echo "sdkmanager not found"
-            exit 1
-          fi
           yes | "$SDKMANAGER" --licenses || true
           "$SDKMANAGER" "platform-tools" "platforms;android-35" "build-tools;35.0.0"
-
 
       - name: Prepare web app
         run: |
@@ -56,14 +49,63 @@ jobs:
 
       - name: Sync Android
         run: npx cap sync android
-          
+
+      - name: Restore permanent signing key
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/app/fitlify-release.jks
+          test -s android/app/fitlify-release.jks
+
+      - name: Configure permanent signing
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path("android/app/build.gradle")
+          s = p.read_text()
+
+          android = re.search(r'\bandroid\s*\{', s)
+          if not android:
+              raise SystemExit("Android configuration not found")
+
+          signing = """
+              signingConfigs {
+                  fitlify {
+                      storeFile file("fitlify-release.jks")
+                      storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+                      keyAlias System.getenv("ANDROID_KEY_ALIAS")
+                      keyPassword System.getenv("ANDROID_KEY_PASSWORD")
+                  }
+              }
+          """
+          s = s[:android.end()] + signing + s[android.end():]
+
+          build_types = re.search(r'\bbuildTypes\s*\{', s)
+          if not build_types:
+              raise SystemExit("Build types configuration not found")
+
+          debug = """
+                  debug {
+                      signingConfig signingConfigs.fitlify
+                  }
+          """
+          s = s[:build_types.end()] + debug + s[build_types.end():]
+          p.write_text(s)
+          PY
+
       - name: Build debug APK
         working-directory: android
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
           chmod +x gradlew
           ./gradlew assembleDebug
-          
-      - name: Extract APK SHA fingerprints
+
+      - name: Verify APK certificate
         run: |
           "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --print-certs android/app/build/outputs/apk/debug/app-debug.apk
 
